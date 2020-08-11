@@ -1,20 +1,226 @@
-<!DOCTYPE html>
-
-<html>
+<html lang="en">
 	<head>
-		<title><%= full_title(yield(:title)) %></title>
-		<%= csrf_meta_tags %>
-		<%= csp_meta_tag %>
-		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-		<%= render 'layouts/shim' %>
-	</head>
-	<body>
-		<%= render 'layouts/header' %>
-		<div class="container">
-			<%= yield %>
-			<%= render 'layouts/footer' %>
-		</div>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta name="description" content="">
+	    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	    <meta name="generator" content="Jekyll v4.1.1">
+	    <title><%= yield(:title) %> | Sample_app</title></title>
+
+	    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/product/">
+
+	    <!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+	    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+	<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+	<meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#563d7c">
+
+
+	    <style>
+	      .bd-placeholder-img {
+	        font-size: 1.125rem;
+	        text-anchor: middle;
+	        -webkit-user-select: none;
+	        -moz-user-select: none;
+	        -ms-user-select: none;
+	        user-select: none;
+	      }
+
+	      @media (min-width: 768px) {
+	        .bd-placeholder-img-lg {
+	          font-size: 3.5rem;
+	        }
+	      }
+	    </style>
+	    <style type="text/css">
+	    	.container {
+			  max-width: 960px;
+			}
+
+			/*
+			 * Custom translucent site header
+			 */
+
+			.site-header {
+			  background-color: rgba(0, 0, 0, .85);
+			  -webkit-backdrop-filter: saturate(180%) blur(20px);
+			  backdrop-filter: saturate(180%) blur(20px);
+			}
+			.site-header a {
+			  color: #999;
+			  transition: ease-in-out color .15s;
+			}
+			.site-header a:hover {
+			  color: #fff;
+			  text-decoration: none;
+			}
+
+			/*
+			 * Dummy devices (replace them with your own or something else entirely!)
+			 */
+
+			.product-device {
+			  position: absolute;
+			  right: 10%;
+			  bottom: -30%;
+			  width: 300px;
+			  height: 540px;
+			  background-color: #333;
+			  border-radius: 21px;
+			  -webkit-transform: rotate(30deg);
+			  transform: rotate(30deg);
+			}
+
+			.product-device::before {
+			  position: absolute;
+			  top: 10%;
+			  right: 10px;
+			  bottom: 10%;
+			  left: 10px;
+			  content: "";
+			  background-color: rgba(255, 255, 255, .1);
+			  border-radius: 5px;
+			}
+
+			.product-device-2 {
+			  top: -25%;
+			  right: auto;
+			  bottom: 0;
+			  left: 5%;
+			  background-color: #e5e5e5;
+			}
+
+
+			/*
+			 * Extra utilities
+			 */
+
+			.flex-equal > * {
+			  -ms-flex: 1;
+			  flex: 1;
+			}
+			@media (min-width: 768px) {
+			  .flex-md-equal > * {
+			    -ms-flex: 1;
+			    flex: 1;
+			  }
+			}
+
+			.overflow-hidden { overflow: hidden; }
+			$gray-medium-light: #eaeaea;
+			@mixin box_sizing {
+				-moz-box-sizing:
+				border-box;
+				-webkit-box-sizing: border-box;
+				box-sizing:
+				border-box;
+			}
+			/* miscellaneous */
+			.debug_dump {
+				clear: both;
+				float: left;
+				width: 100%;
+				margin-top: 45px;
+				@include box_sizing;
+			}
+
+			 /* forms */
+			input, textarea, select, .uneditable-input {
+				border: 1px solid #bbb;
+				width: 100%;
+				margin-bottom: 15px;
+				@include box_sizing;
+			}
+			input {
+				height: auto !important;
+			}
+			.center {
+			  margin: auto;
+			  width: 50%;
+			  padding: 10px;
+			}
+			.center-1 {
+			  margin: auto;
+			  width: 100%;
+			  padding: 10px;
+			}
+			#error_explanation {
+				color: red;
+				ul {
+					color: red;
+					margin: 0 0 30px 0;
+				}
+			}
+			.field_with_errors {
+				@extend .has-error;
+				.form-control {
+				 color: $state-danger-text;
+				}
+			}
+			/* sidebar */
+			aside {
+				section.user_info {
+					margin-top: 20px;
+					margin-left: 10rem;
+				}
+				section {
+				padding: 10px 0;
+				margin-top: 20px;
+					&:first-child {
+					border: 0;
+					padding-top: 0;
+					}
+				span {
+					display: block;
+					margin-bottom: 3px;
+					line-height: 1;
+				}
+				h1 {
+					font-size: 1.4em;
+					text-align: left;
+					letter-spacing: -1px;
+					margin-bottom: 3px;
+					margin-top: 0px;
+					}
+				}
+			}
+			.vta{
+				margin-left: 10rem;
+				margin-top: 3rem;
+			}
+			.gravatar {
+			float: left;
+			margin-right: 10px;
+			}
+			.gravatar_edit {
+			margin-top: 15px;
+			}
+
+	    </style>
+	    <!-- Custom styles for this template -->
+	    <link href="product.css" rel="stylesheet">
+	  </head>
+	  <body class = "">
+	  	<%= render "layouts/header" %>
+	  	<div class="" >
+		  	<% flash.each do |message_type, message| %>
+			<div class="alert alert-<%= message_type %>">
+				<%= message %>		
+			</div>
+		<% end %>
+	  		<%= yield %> 
+	  		<%= render "layouts/footer" %>
+	  	</div>	
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		      
+
 	</body>
 </html>
-
