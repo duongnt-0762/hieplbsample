@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
+	before_action :logged_in_user, only: [:show, :index, :edit, :update, :destroy]
 	before_action :check_logged_in, only: :new
-	before_action :find_user, only: [:show, :edit,:update, :correct_user]	
-	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+	before_action :find_user, only: [:show, :edit,:update, :correct_user, :destroy]	
 	before_action :correct_user,only: [:edit, :update]
 	before_action :admin_user,only: :destroy
 	
@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 		@users = User.paginate(page: params[:page])
 	end
   	def show
+  		@microposts = @user.microposts.paginate(page: params[:page])
 	end
 	def new
 		@user = User.new
@@ -46,7 +47,7 @@ class UsersController < ApplicationController
 		end
 	end
 	def destroy
-		find_user.destroy
+		@user.destroy
 		flash[:success] = "User deleted"
 		redirect_to users_url
 	end	
@@ -63,7 +64,10 @@ class UsersController < ApplicationController
 		end
 	end
 	def correct_user
-		current_user.current_user?(@user)
+		if !current_user.current_user?(@user)
+			flash[:danger] = "không được phép sửa user của người khác"
+			redirect_to @user
+		end	
 	end
 	def check_logged_in
 		if logged_in?

@@ -1,9 +1,18 @@
-<% provide(:title, "Help") %>
-<h1>Help</h1>
-<p>
-	Get help on the Ruby on Rails Tutorial at the
-	<a href="https://www.railstutorial.org/help">Rails Tutorial Help page</a>.
-	To get help on this sample app, see the
-	<a href="https://www.railstutorial.org/book"><em>Ruby on Rails Tutorial</em>
-	book</a>.
-</p>
+<% if logged_in? %>
+	<div class="row">
+	<aside class="col-md-4">
+	<section class="user_info">
+	<%= render 'shared/user_info' %>
+	</section>
+	<section class="micropost_form">
+	<%= render 'shared/micropost_form' %>
+	</section>
+	</aside>
+	<div class="col-md-8">
+	<h3>Micropost Feed</h3>
+	<%= render 'shared/feed' %>
+	</div>
+	</div>
+	<% else %>
+	Xin Đăng Nhập <%= link_to "login", login_path %>
+<% end %>

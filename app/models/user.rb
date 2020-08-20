@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+	has_many :microposts, dependent: :destroy
 	attr_accessor :remember_token
 	before_save :downcase_email
 	validates :name, presence: true, length: { maximum: 50 }
@@ -42,7 +43,9 @@ class User < ApplicationRecord
 	def current_user?(user)
 		user && user == self
 	end
-
+	def feed
+		Micropost.where("user_id = ?", id)
+	end
 	private
 	def check_date
 		 	if sinhnhat >= Date.current
