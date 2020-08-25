@@ -4,13 +4,14 @@ class MicropostsController < ApplicationController
 	before_action :correct_user, only: :destroy
 
 	def create
-	@micropost = current_user.microposts.build(micropost_params)
-	@micropost.image.attach(params[:micropost][:image])
+		@micropost = current_user.microposts.build(micropost_params)
+		@micropost.image.attach(params[:micropost][:image])
 		if @micropost.save
 			flash[:success] = "Micropost created!"
 			redirect_to help_path
 		else
-			@feed_items = current_user.feed.paginate(page: params[:page])
+
+			@feed_items = current_user.feed.order_by_time.paginate(page: params[:page])
 			render 'static_pages/help'
 		end
 	end
